@@ -53,7 +53,7 @@ public class controladorLogin extends HttpServlet {
 			pojoRegistros registros = mysql.getRegistros(boleta);
 			session.setAttribute("Registros", registros);
 			session.setAttribute("Usuario", usuario);
-			response.sendRedirect("home.html");
+			response.sendRedirect("home.jsp");
 			
 		}
 		

@@ -27,7 +27,7 @@ public class controladorRegistro extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -35,7 +35,19 @@ public class controladorRegistro extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		String campos[] = new String[4];
+		campos[0] = request.getParameter("email");
+		campos[1] = request.getParameter("boleta");
+		campos[2] = request.getParameter("nombre");
+		campos[3] = request.getParameter("password");
+		
+		gestionarDatos mysql = new gestionarDatos();
+		
+		mysql.registrarUsuario(campos);
+		
+		response.sendRedirect("login.html");
+		
+		
+		
 
 }
