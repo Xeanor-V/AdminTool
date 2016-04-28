@@ -4,7 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
+import java.util.*;
 /**
  * Servlet implementation class controladorLogin
  */
@@ -50,8 +50,12 @@ public class controladorLogin extends HttpServlet {
 			// igual pongo su usuario en la sesion, para con JSP construir el home
 			// creo que lo unico que varia es si el usuario puede o no agregar una cuenta
 			HttpSession session = request.getSession();
-			pojoRegistros registros = mysql.getRegistros(boleta);
-			session.setAttribute("Registros", registros);
+			
+			//proponrgo que el metodo regrese un arrayList de registros del usuario para que mas adelante los muestre en JSP y cuando
+			//se selecciona un registro a usar o a modificar el servlet de las operaciones lo encuentre rapido y agregue etc..
+			HashMap registros = mysql.getRegistros(boleta);
+			//recorre el hashMap con el iterator para sacar los objetos
+			session.setAttribute("registrosUsuario", registros);
 			session.setAttribute("Usuario", usuario);
 			response.sendRedirect("home.jsp");
 			
