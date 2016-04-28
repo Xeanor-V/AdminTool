@@ -6,6 +6,8 @@ import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import modelo.*;
+import negocio.*;
 /**
  * Servlet implementation class controladorOperacion
  */
@@ -45,7 +47,7 @@ public class controladorOperacion extends HttpServlet {
 		
 		HashMap registros = (HashMap) session.getAttribute("registros");
 		
-		
+		//validamos si el registro es de los que tenemos o creamos uno nuevo
 		if(registros.containsKey(nombreRegistro))
 		{
 			Registro registroUsar = registros.get(nombreRegistro);
@@ -55,7 +57,8 @@ public class controladorOperacion extends HttpServlet {
 			Registro registroUsar = new Registro(nombreRegistro);
 		}
 		
-		
+		session.setAttribute("registroUsar",registroUsar);
+		response.sendRedirect("operaciones.jsp");
 	}
 
 }
