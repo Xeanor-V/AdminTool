@@ -48,13 +48,14 @@ public class controladorOperacion extends HttpServlet {
 		HashMap registros = (HashMap) session.getAttribute("registros");
 		
 		//validamos si el registro es de los que tenemos o creamos uno nuevo
+		Registro registroUsar = null;
 		if(registros.containsKey(nombreRegistro))
 		{
-			Registro registroUsar = registros.get(nombreRegistro);
+			registroUsar = (Registro) registros.get(nombreRegistro);
 		}
 		else
 		{
-			Registro registroUsar = new Registro(nombreRegistro);
+			registroUsar = new Registro(nombreRegistro);
 		}
 		
 		session.setAttribute("registroUsar",registroUsar);

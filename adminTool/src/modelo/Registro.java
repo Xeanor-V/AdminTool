@@ -4,23 +4,23 @@ import java.util.*;
 public class Registro {
 
 	private String nombre;
-	private ArrayList operaciones;
+	private ArrayList cuentas;
 	public Registro(String nombre) {
 		
 		this.nombre = nombre;
 	}
-	public void agregarOperacion(Operacion oper)
+	public void agregarCuenta(Cuenta cuent)
 	{
-		operaciones.add(oper);
+		cuentas.add(cuent);
 	}
-	public void eliminarOperacion(Operacion oper)
+	public void eliminarCuenta(Cuenta cuent)
 	{
 		
 	}
 	
-	public ArrayList getOperaciones()
+	public ArrayList getCuentas()
 	{
-		return operaciones;
+		return cuentas;
 	}
 	public String getNombre()
 	{
