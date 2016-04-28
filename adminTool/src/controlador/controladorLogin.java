@@ -39,7 +39,7 @@ public class controladorLogin extends HttpServlet {
 		String boleta = request.getParameter("boleta");
 		String pass = request.getParameter("password");
 		
-		String [] usuario = mysql.validar(boleta,pass);
+		String []usuario = mysql.validar(boleta,pass);
 		
 		//Jalamos el usuario y su tipo, si es nulo no existe
 		if(usuario[0].equals("null"))
@@ -55,8 +55,8 @@ public class controladorLogin extends HttpServlet {
 			
 			//proponrgo que el metodo regrese un arrayList de registros del usuario para que mas adelante los muestre en JSP y cuando
 			//se selecciona un registro a usar o a modificar el servlet de las operaciones lo encuentre rapido y agregue etc..
-			HashMap registros = mysql.getRegistros(boleta);
-			//recorre el hashMap con el iterator para sacar los objetos
+			String[] registros = mysql.getNombreRegistros(boleta);
+			//recorreel hashMap con el iterator para sacar los objetos
 			session.setAttribute("registrosUsuario", registros);
 			session.setAttribute("Usuario", usuario);
 			response.sendRedirect("home.jsp");

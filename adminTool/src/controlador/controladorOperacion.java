@@ -45,20 +45,17 @@ public class controladorOperacion extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		HashMap registros = (HashMap) session.getAttribute("registros");
-		
+		gestionarDatos mysql = new gestionarDatos();
+		 
+		Registro registro = mysql.getRegistro(nombreRegistro);
 		//validamos si el registro es de los que tenemos o creamos uno nuevo
-		Registro registroUsar = null;
-		if(registros.containsKey(nombreRegistro))
-		{
-			registroUsar = (Registro) registros.get(nombreRegistro);
-		}
-		else
+		if(registro==null)
 		{
 			registroUsar = new Registro(nombreRegistro);
 		}
 		
-		session.setAttribute("registroUsar",registroUsar);
+		
+		session.setAttribute("registroUsar",registro);
 		response.sendRedirect("operaciones.jsp");
 	}
 
