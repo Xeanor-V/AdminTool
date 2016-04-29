@@ -2,6 +2,8 @@ package modelo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import modelo.ConexionBD;
 
 
@@ -28,7 +30,8 @@ public class QuerysBD {
 		try {
 			ConexionBD basedatos = new ConexionBD();
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
-			String sentencia = "SELECT idusuario FROM usuario where nocuenta = '" + boleta + "' and contra = " + pass + "'";
+			String sentencia = "SELECT idusuario FROM usuario where nocuenta = '" + boleta + "' and contra = '" + pass + "'";
+			System.out.println(sentencia);
 			ResultSet tuplas = basedatos.consulta(sentencia);
 			String aux = "";
 			while (tuplas.next())
@@ -41,140 +44,72 @@ public class QuerysBD {
 		return null;
 	}
 	
-	public static String[] obtenerFechas() {
+	public static String getIdUsuario(String boleta){
 		try {
 			ConexionBD basedatos = new ConexionBD();
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
-			String sentencia = "SELECT fecha FROM t00figuras";
+			String sentencia = "SELECT idusuario FROM usuario where nocuenta = '" + boleta + "'";
+			System.out.println(sentencia);
 			ResultSet tuplas = basedatos.consulta(sentencia);
-			
 			String aux = "";
 			while (tuplas.next())
-				aux += tuplas.getString(1) + ",EdGaR";
-			
+				return tuplas.getString(1);
 			if(aux.equals(""))
-				return null;
-			return aux.split(",EdGaR");
+				return "null";
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public static String[] obtenerIDs() {
+	public static String[][] getRegistros(String boleta){
 		try {
 			ConexionBD basedatos = new ConexionBD();
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
-			
-			String sentencia = "SELECT idt00figuras FROM t00figuras";
-			
+			String idUsuario = getIdUsuario(boleta);
+			String sentencia = "SELECT nombre, idregistro FROM registro where idusuario = '" + idUsuario + "'";
+			System.out.println(sentencia);
 			ResultSet tuplas = basedatos.consulta(sentencia);
-			String aux = "";
-			while (tuplas.next())
-				aux += tuplas.getString(1) + ",1234";
-			if(aux.equals(""))
-				return null;
-			return aux.split(",1234");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	public static String[] obtenerTupla(String id) {
-		try {
-			ConexionBD basedatos = new ConexionBD();
-
-			basedatos.conectar(DatosBD.url, DatosBD.usuario, DatosBD.password);
-			
-			String sentencia = "SELECT * FROM t00figuras WHERE idt00figuras = " + id;
-			
-			ResultSet tuplas = basedatos.consulta(sentencia);
-			String aux = "";
+			ArrayList<String[]> vector = new ArrayList<String[]>();
 			while (tuplas.next()){
-				for(int i = 1; i <= 8; i++)
-					aux += tuplas.getString(i) + "CoMaAaAaAaA";
+				String[] aux = new String[2];
+				aux[0] = tuplas.getString(1);
+				aux[1] = tuplas.getString(2);
+				vector.add(aux);
 			}
-			if(aux.equals(""))
-				return null;
-			return aux.split("CoMaAaAaAaA");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	public static String obtenerColor(String id) {
-		try {
-			ConexionBD basedatos = new ConexionBD();
 
-			basedatos.conectar(DatosBD.url, DatosBD.usuario, DatosBD.password);
-			
-			String sentencia = "SELECT extra3 FROM t00figuras WHERE idt00figuras = " + id;
-			
-			ResultSet tuplas = basedatos.consulta(sentencia);
-			tuplas.next();
-			return tuplas.getString(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	public static String obtenerXML(String id) {
-		try {
-			ConexionBD basedatos = new ConexionBD();
-
-			basedatos.conectar(DatosBD.url, DatosBD.usuario, DatosBD.password);
-			
-			String sentencia = "SELECT xml FROM t00figuras WHERE idt00figuras = " + id;
-			
-			ResultSet tuplas = basedatos.consulta(sentencia);
-			tuplas.next();
-			return tuplas.getString(1);
+			String[][] ans = new String[vector.size()][2];
+			int cont = 0;
+			for(String[] i : vector)
+				ans[cont++] = i;
+			return ans;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public static String obtenerID(int id) {
-		try {
-			ConexionBD basedatos = new ConexionBD();
-
-			basedatos.conectar(DatosBD.url, DatosBD.usuario, DatosBD.password);
-			
-			String sentencia = "SELECT idt00figuras FROM t00figuras";
-			
-			ResultSet tuplas = basedatos.consulta(sentencia);
-			for(int i = 0; i <= id; i++)
-				tuplas.next();
-			return tuplas.getString(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	
-	public static void insert(String sentencia){
+	public static boolean registrarUsuario(String[] campo){
 		ConexionBD basedatos = new ConexionBD();
 		basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
 		
-		basedatos.insertar(sentencia);
+		String sentencia = "INSERT INTO usuario(correo, nocuenta, nombre, contra) VALUES('" 
+		+ campo[0] + "', '" + campo[1] + "', '" + campo[2] + "', '" + campo[3] + "')";
+		System.out.println(sentencia);
+		return basedatos.insertar(sentencia);
 	}
 	
-	public static void eliminar(String id){
-		ConexionBD basedatos = new ConexionBD();
-		basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
+	public static boolean agregarCuenta(Cuenta cuenta){
 		
-		String sentencia = "DELETE FROM t00figuras WHERE idt00figuras = " + id;	
-		basedatos.insertar(sentencia);
 	}
+	
 	
 	public static void main(String[] args){
-		String[] nombre = obtenerNombres();
-		System.out.println(nombre);
-		java.util.Date dt = new java.util.Date();
-
-		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String currentTime = sdf.format(dt);
+		String campo[] = new String[4];
+		campo[0] = "chosto@chosto.com";
+		campo[1] = "11111111";
+		campo[2] = "Chosto Man";
+		campo[3] = "lol"; 
+		registrarUsuario(campo);
 	}
 }
