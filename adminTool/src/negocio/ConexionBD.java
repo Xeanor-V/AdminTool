@@ -1,4 +1,4 @@
-package modelo;
+package negocio;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,13 +26,15 @@ public class ConexionBD{
 			return true;
 		return false;
 	}
-	public void insertar(String consulta){		
+	public boolean insertar(String consulta){		
 		try{
 			System.out.println(consulta);
 			Statement sentenciaBuscar = (Statement)this.con.createStatement();
 			sentenciaBuscar.executeUpdate(consulta);
+			return true;
 		}catch( Exception e ){
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

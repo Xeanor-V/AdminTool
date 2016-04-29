@@ -1,16 +1,14 @@
-package modelo;
+package negocio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import modelo.ConexionBD;
-
+import modelo.*;
 
 public class QuerysBD {
-	public static String[] obtenerNombres() {
+	public ConexionBD basedatos = new ConexionBD();
+	public  String[] obtenerNombres() {
 		try {
-			ConexionBD basedatos = new ConexionBD();
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
 			String sentencia = "SELECT nombre FROM t00figuras";
 			ResultSet tuplas = basedatos.consulta(sentencia);
@@ -26,9 +24,8 @@ public class QuerysBD {
 		return null;
 	}
 
-	public static String validarUsuario(String boleta, String pass) {
+	public String validarUsuario(String boleta, String pass) {
 		try {
-			ConexionBD basedatos = new ConexionBD();
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
 			String sentencia = "SELECT idusuario FROM usuario where nocuenta = '" + boleta + "' and contra = '" + pass + "'";
 			System.out.println(sentencia);
@@ -44,9 +41,8 @@ public class QuerysBD {
 		return null;
 	}
 	
-	public static String getIdUsuario(String boleta){
+	public String getIdUsuario(String boleta){
 		try {
-			ConexionBD basedatos = new ConexionBD();
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
 			String sentencia = "SELECT idusuario FROM usuario where nocuenta = '" + boleta + "'";
 			System.out.println(sentencia);
@@ -62,9 +58,8 @@ public class QuerysBD {
 		return null;
 	}
 	
-	public static String[][] getRegistros(String boleta){
+	public String[][] getRegistros(String boleta){
 		try {
-			ConexionBD basedatos = new ConexionBD();
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
 			String idUsuario = getIdUsuario(boleta);
 			String sentencia = "SELECT nombre, idregistro FROM registro where idusuario = '" + idUsuario + "'";
@@ -89,8 +84,7 @@ public class QuerysBD {
 		return null;
 	}
 	
-	public static boolean registrarUsuario(String[] campo){
-		ConexionBD basedatos = new ConexionBD();
+	public  boolean registrarUsuario(String[] campo){
 		basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
 		
 		String sentencia = "INSERT INTO usuario(correo, nocuenta, nombre, contra) VALUES('" 
@@ -99,17 +93,17 @@ public class QuerysBD {
 		return basedatos.insertar(sentencia);
 	}
 	
-	public static boolean agregarCuenta(Cuenta cuenta){
-		
+	public  boolean agregarCuenta(Cuenta cuenta){
+		return true;
 	}
 	
 	
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		String campo[] = new String[4];
 		campo[0] = "chosto@chosto.com";
 		campo[1] = "11111111";
 		campo[2] = "Chosto Man";
 		campo[3] = "lol"; 
 		registrarUsuario(campo);
-	}
+	}*/
 }

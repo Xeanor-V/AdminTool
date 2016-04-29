@@ -1,4 +1,4 @@
-package modelo;
+package negocio;
 
 public class DatosBD {
 	public static String url= "jdbc:mysql://localhost:3305/adminproyecto11";
