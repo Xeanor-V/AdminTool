@@ -15,6 +15,7 @@ CREATE TABLE `adminproyecto12`.`cuentasDisponibles` (
   `tipo` INT NOT NULL,
   `subtipo` INT,
   `identificador` VARCHAR(45),
+  UNIQUE(`nombre`),
   PRIMARY KEY (`idcuentasDisponibles`));
 
 CREATE TABLE `adminproyecto12`.`usuario` (
