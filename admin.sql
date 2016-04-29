@@ -9,6 +9,23 @@ CREATE TABLE `adminproyecto12`.`usuario` (
   UNIQUE(`nocuenta`),
   PRIMARY KEY (`idusuario`));
 
+CREATE TABLE `adminproyecto12`.`cuentasDisponibles` (
+  `idcuentasDisponibles` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `tipo` INT NOT NULL,
+  `subtipo` INT,
+  `identificador` VARCHAR(45),
+  PRIMARY KEY (`idcuentasDisponibles`));
+
+CREATE TABLE `adminproyecto12`.`usuario` (
+  `idusuario` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `correo` VARCHAR(45) NOT NULL,
+  `contra` VARCHAR(45) NOT NULL,
+  `nocuenta` VARCHAR(20) NOT NULL,
+  UNIQUE(`nocuenta`),
+  PRIMARY KEY (`idusuario`));
+
 CREATE TABLE `adminproyecto12`.`registro` (
   `idregistro` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,

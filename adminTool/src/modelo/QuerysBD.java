@@ -100,6 +100,13 @@ public class QuerysBD {
 	}
 	
 	public static boolean agregarCuenta(Cuenta cuenta){
+		ConexionBD basedatos = new ConexionBD();
+		basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
+		
+		String sentencia = "INSERT INTO cuentasDisponibles(nombre, identificador, tipo, subtipo) VALUES('" 
+		+ cuenta.getNombre() + "', '" + cuenta.getID() + "', '" + cuenta.getTipo() + "', '" + cuenta.getSubTipo() + "')";
+		System.out.println(sentencia);
+		return basedatos.insertar(sentencia);
 		
 	}
 	
@@ -111,5 +118,7 @@ public class QuerysBD {
 		campo[2] = "Chosto Man";
 		campo[3] = "lol"; 
 		registrarUsuario(campo);
+		Cuenta aux = new Cuenta("uaeoua", "1", "1", "1");
+		agregarCuenta(aux);
 	}
 }
