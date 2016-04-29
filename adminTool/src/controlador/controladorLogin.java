@@ -39,7 +39,7 @@ public class controladorLogin extends HttpServlet {
 		String boleta = request.getParameter("boleta");
 		String pass = request.getParameter("password");
 		
-		String []usuario = mysql.validarUsuario(boleta,pass);
+		String usuario = mysql.validarUsuario(boleta,pass);
 		
 		//Jalamos el usuario y su tipo, si es nulo no existe
 		if(usuario[0].equals("null"))
