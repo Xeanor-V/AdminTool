@@ -1,5 +1,5 @@
 package controlador;
-
+import negocio.*;
 import modelo.*;
 import negocio.*;
 import java.io.IOException;
@@ -35,11 +35,11 @@ public class controladorLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		gestionarDatos mysql = new gestionarDatos();
+		QuerysBD mysql = new QuerysBD();
 		String boleta = request.getParameter("boleta");
 		String pass = request.getParameter("password");
 		
-		String []usuario = mysql.validar(boleta,pass);
+		String []usuario = mysql.validarUsuario(boleta,pass);
 		
 		//Jalamos el usuario y su tipo, si es nulo no existe
 		if(usuario[0].equals("null"))
@@ -55,7 +55,7 @@ public class controladorLogin extends HttpServlet {
 			
 			//proponrgo que el metodo regrese un arrayList de registros del usuario para que mas adelante los muestre en JSP y cuando
 			//se selecciona un registro a usar o a modificar el servlet de las operaciones lo encuentre rapido y agregue etc..
-			String[] registros = mysql.getNombreRegistros(boleta);
+			String[][] registros = mysql.geNombreRegistros(boleta);
 			//recorreel hashMap con el iterator para sacar los objetos
 			session.setAttribute("registrosUsuario", registros);
 			session.setAttribute("Usuario", usuario);

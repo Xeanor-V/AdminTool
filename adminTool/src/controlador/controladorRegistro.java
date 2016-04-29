@@ -43,7 +43,7 @@ public class controladorRegistro extends HttpServlet {
 		campos[2] = request.getParameter("nombre");
 		campos[3] = request.getParameter("password");
 		
-		gestionarDatos mysql = new gestionarDatos();
+		QuerysBD mysql = new QuerysBD();
 		
 		mysql.registrarUsuario(campos);
 		
@@ -52,4 +52,5 @@ public class controladorRegistro extends HttpServlet {
 		
 		
 
+	}
 }

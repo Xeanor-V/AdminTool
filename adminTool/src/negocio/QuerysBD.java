@@ -58,7 +58,7 @@ public class QuerysBD {
 		return null;
 	}
 	
-	public String[][] getRegistros(String boleta){
+	public String[][] getNombreRegistros(String boleta){
 		try {
 			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
 			String idUsuario = getIdUsuario(boleta);
