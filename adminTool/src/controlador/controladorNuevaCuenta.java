@@ -1,5 +1,5 @@
 package controlador;
-
+import negocio.*;
 import modelo.*;
 import negocio.*;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class controladorNuevaCuenta extends HttpServlet {
 		String tipo = request.getParameter("tipo");
 		String subTipo = request.getParameter("subTipo");
 		Cuenta cuenta = new Cuenta(nombre,Identificador,tipo,subTipo);
-		gestionarDatos mysql = new gestionarDatos();
+		QuerysBD mysql = new QuerysBD();
 		mysql.agregarCuenta(cuenta);
 		response.sendRedirect("agregar.jsp");
 		

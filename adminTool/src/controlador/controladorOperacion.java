@@ -45,7 +45,7 @@ public class controladorOperacion extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		gestionarDatos mysql = new gestionarDatos();
+		QuerysBD mysql = new QuerysBD();
 		 
 		Registro registro = mysql.getRegistro(nombreRegistro);
 		//validamos si el registro es de los que tenemos o creamos uno nuevo

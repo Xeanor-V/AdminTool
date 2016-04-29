@@ -8,23 +8,6 @@ import modelo.ConexionBD;
 
 
 public class QuerysBD {
-	public static String[] obtenerNombres() {
-		try {
-			ConexionBD basedatos = new ConexionBD();
-			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
-			String sentencia = "SELECT nombre FROM t00figuras";
-			ResultSet tuplas = basedatos.consulta(sentencia);
-			String aux = "";
-			while (tuplas.next())
-				aux += tuplas.getString(1) + ",HoLa";
-			if(aux.equals(""))
-				return null;
-			return aux.split(",HoLa");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	public static String validarUsuario(String boleta, String pass) {
 		try {
