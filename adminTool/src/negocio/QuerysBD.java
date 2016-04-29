@@ -93,15 +93,34 @@ public class QuerysBD {
 		
 	}
 	
+	public static String[] getNombresCuentas(){
+		try {
+			ConexionBD basedatos = new ConexionBD();
+			basedatos.conectar(DatosBD.url,DatosBD.usuario,DatosBD.password);
+			String sentencia = "SELECT nombre FROM cuentasDisponibles";
+			System.out.println(sentencia);
+			ResultSet tuplas = basedatos.consulta(sentencia);
+			ArrayList<String> vector = new ArrayList<String>();
+			while (tuplas.next()){
+				String aux = "";
+				aux = tuplas.getString(1);
+				vector.add(aux);
+			}
+
+			String[] ans = new String[vector.size()];
+			int cont = 0;
+			for(String i : vector)
+				ans[cont++] = i;
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public static void main(String[] args){
-		String campo[] = new String[4];
-		campo[0] = "chosto@chosto.com";
-		campo[1] = "11111111";
-		campo[2] = "Chosto Man";
-		campo[3] = "lol"; 
-		registrarUsuario(campo);
-		Cuenta aux = new Cuenta("uaeoua", "1", "1", "1");
-		agregarCuenta(aux);
+		String[] aux = getNombresCuentas();
+		for(String i : aux)
+			System.out.println(i);
 	}
 }
