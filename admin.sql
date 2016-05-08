@@ -5,6 +5,7 @@ CREATE TABLE `adminproyecto12`.`usuario` (
   `nombre` VARCHAR(45) NOT NULL,
   `correo` VARCHAR(45) NOT NULL,
   `contra` VARCHAR(45) NOT NULL,
+  `tipo` INT NOT NULL,
   `nocuenta` VARCHAR(20) NOT NULL,
   UNIQUE(`nocuenta`),
   PRIMARY KEY (`idusuario`));
@@ -68,7 +69,8 @@ CREATE TABLE `adminproyecto12`.`operacion` (
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 
-insert into usuario(nombre, correo, contra, nocuenta) values('Edgar', 'garo.edgar21@gmail.com', 'edgar21', '2014330415');
+
+insert into usuario(nombre, correo, contra, nocuenta, tipo) values('Edgar', 'garo.edgar21@gmail.com', 'edgar21', '2014330415', 1);
 insert into registro(nombre, idusuario) value('Cocodrilo', 2);
 insert into registro(nombre, idusuario) value('Cocodrilo2', 2);
 insert into registro(nombre, idusuario) value('Cocodrilo3', 2);
